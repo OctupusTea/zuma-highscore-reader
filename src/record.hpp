@@ -3,14 +3,12 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 
-using std::istream;
-using std::pair;
-using std::string;
-using std::vector;
+using namespace std;
 
 namespace zuma_highscore_reader {
 
@@ -23,19 +21,26 @@ struct Time_Entry
 {
     string header;
     string player;
-    int32_t time;
+    uint32_t time;
 
-    bool operator< (const Time_Entry &comp_entry) const {
-        return header.compare(comp_entry.header);
+    bool operator< (const string &comp_header) const { return header < comp_header; }
+    friend bool operator< (const string &comp_header, const Time_Entry &comp_entry) { return comp_header < comp_entry.header; }
+    bool operator> (const string &comp_header) const { return header > comp_header; }
+    friend bool operator> (const string &comp_header, const Time_Entry &comp_entry) { return comp_header > comp_entry.header; }
+
+    bool operator< (const uint32_t comp_time) const { return time < comp_time; }
+    friend bool operator< (const uint32_t comp_time, const Time_Entry &comp_entry) { return comp_time < comp_entry.time; }
+    bool operator> (const uint32_t comp_time) const { return time > comp_time; }
+    friend bool operator> (const uint32_t comp_time, const Time_Entry &comp_entry) { return comp_time > comp_entry.time; }
+
+    bool operator< (const Time_Entry &comp_entry) { return time < comp_entry.time; }
+    bool operator> (const Time_Entry &comp_entry) { return time > comp_entry.time; }
+
+    bool operator== (const Time_Entry &assign_entry) const {
+            return (header == assign_entry.header and player == assign_entry.player and time == assign_entry.time);
     }
 
-    bool operator< (const string &comp_header) const {
-        return header.compare(comp_header);
-    }
-
-    friend bool operator< (const string &comp_string, const Time_Entry &comp_header) {
-        return comp_string.compare(comp_header.header);
-    }
+    static Time_Entry Empty_Entry (const string &header) { return {header, "NONE", UINT32_MAX}; }
 };
 
 struct RecordStorage

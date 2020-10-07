@@ -13,11 +13,14 @@ make                 # for regular bulid
 make DGLAGS=-DDEBUG  # for debugging output
 ```
 
-## Execution
-- Linux: `./bin/main`
-- Windows: `bin\main`
+# Execution & Usage
+- Linux: `./bin/reader`
+- Windows: `bin\reader`
+
+## Command line argument
+- File path(s): Path to the desired `highscore.dat` files(s) to read
+- `-h`: Display help
 
 # Future Works
-- Command line argument
 - Modded game support
 - `levels.xml` support

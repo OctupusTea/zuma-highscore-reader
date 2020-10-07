@@ -1,8 +1,9 @@
 .PHONY: clean
 
 # Compiler & options
-CC=g++
-CFLAGS=-std=c++11 -pthread -Wall -Wextra -Wshadow -Wconversion -fsanitize=address -fsanitize=undefined
+CC=g++-8
+CFLAGS=-std=c++17 -pthread -Wall -Wextra -Wshadow -Wconversion -fsanitize=address -fsanitize=undefined
+CFLAGS+=-lstdc++fs
 CFLAGS+=$(DFLAGS)
 
 # File directory
@@ -11,7 +12,7 @@ OBJ_DIR=obj
 SRC_DIR=src
 
 # Files
-_MAIN=main
+_MAIN=reader
 _MAIN_OBJ=main.o record.o common.o
 
 # Directed Files
